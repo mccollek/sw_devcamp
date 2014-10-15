@@ -1,0 +1,62 @@
+<%= form_for(@event, :html => {'data-abide' => ''}) do |f| %>
+  <% if @event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+      <ul>
+      <% @event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="small-12 medium-6 columns left">
+	    <label>
+	    	<span class="required left">*</span>
+	    	<%= f.label :name %>
+			<%= f.text_field :name, 'required'=>'', 'pattern'=>"min_six" %>
+	    </label>
+	    <small class="error">We a name for your event, at least 6 characters long.</small>
+    </div>
+    <div class="small-12 medium-6 columns">
+	    <label>
+	    	<span class="required left">* </span>
+		    <%= f.label :start_time %>
+		    <%= f.datetime_select :start_time, :with_css_classes => true, 'required'=>''  %>
+	    </label>
+	    <small class="error">Whoops, looks like you missed one.</small>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 medium-6 columns left">
+	    <label>
+		    <%= f.label :description %>
+		    <%= f.text_area :description %>
+	    </label>
+    </div>
+    <div class="small-12 medium-6 columns">
+	    <label>
+	    	<span class="required left">* </span>
+		    <%= f.label :end_time %>
+		    <%= f.datetime_select :end_time, :with_css_classes => true, 'required'=>''   %>
+	    </label>
+	    <small class="error">You might have missed one.</small>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 medium-6 columns">
+	    <label>
+	    	<span class="required left">* </span>
+		    <%= f.label :location %>
+		    <%= f.text_area :location, 'required'=>''  %>
+	    </label>
+	    <small class="error">Uh-oh. The event needs to have a location.</small>
+    </div>
+  </div>
+    
+  <div class="actions">
+    <%= f.submit :class => 'button' %>
+  </div>
+<% end %>
