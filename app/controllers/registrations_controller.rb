@@ -15,6 +15,12 @@ class RegistrationsController < ApplicationController
   # GET /registrations/new
   def new
     @registration = Registration.new
+    if params[:event_id]
+      @registration.event = Event.find(params[:event_id])
+    end
+    if user_signed_in?
+      @registration.user = current_user
+    end
   end
 
   # GET /registrations/1/edit
@@ -25,7 +31,6 @@ class RegistrationsController < ApplicationController
   # POST /registrations.json
   def create
     @registration = Registration.new(registration_params)
-
     respond_to do |format|
       if @registration.save
         format.html { redirect_to @registration, notice: 'Registration was successfully created.' }

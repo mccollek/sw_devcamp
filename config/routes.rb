@@ -2,7 +2,10 @@ Rails.application.routes.draw do
   resources :registrations
 
   devise_for :users
-  resources :events
+  resources :events do
+    resources :registrations
+  end
+
   
   root to: "events#index"
 
